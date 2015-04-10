@@ -11,7 +11,7 @@ function initialize() {
   var sf = new google.maps.LatLng(37.7856360, -122.3971190);
 
   directionsDisplay = new google.maps.DirectionsRenderer();
-
+  directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
   var mapOptions = {
     center: sf,
