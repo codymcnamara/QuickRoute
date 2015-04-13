@@ -37,7 +37,7 @@ function initialize() {
     var places = searchBox.getPlaces();
 
     var startLoc = places[0].geometry.location;
-    start = new google.maps.LatLng(places[0].geometry.location.k, places[0].geometry.location.D)
+    start = new google.maps.LatLng(startLoc.k, startLoc.D)
 
     // change the bounds so that it incorpartes space between start and end point
 
@@ -46,19 +46,20 @@ function initialize() {
   google.maps.event.addListener(firstWaypointSearchBox, 'places_changed', function() {
     var places = firstWaypointSearchBox.getPlaces();
 
+    var waypointLocation = places[0].geometry.location
+
     waypoints.push({
-      location: new google.maps.LatLng(places[0].geometry.location.k, places[0].geometry.location.D),
+      location: new google.maps.LatLng(waypointLocation.k, waypointLocation.D),
       stopover: true
     })
-
   });
 
   var searchButton = document.getElementById('search-submit');
 
   searchButton.addEventListener("click", function(){
-    // if(start){
+    if(start){
       calcRoute(start, waypoints)
-    // }
+    }
   });
 
   // Bias the SearchBox results towards places that are within the bounds of the
@@ -66,6 +67,7 @@ function initialize() {
   google.maps.event.addListener(map, 'bounds_changed', function() {
     var bounds = map.getBounds();
     searchBox.setBounds(bounds);
+    firstWaypointSearchBox.setBounds(bounds);
   });
 }
 
@@ -76,6 +78,7 @@ function calcRoute(start, waypoints) {
       origin: start,
       destination: end,
       waypoints: waypoints,
+      optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
   };
 

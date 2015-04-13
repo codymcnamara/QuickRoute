@@ -12,7 +12,7 @@ html, body {
 }
 
 
-/* SearchBox*/
+/* SearchBoxs*/
 
 .controls {
   margin-top: 16px;
@@ -25,7 +25,8 @@ html, body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-#pac-input {
+
+.controls {
   background-color: #fff;
   font-family: Roboto;
   font-size: 15px;
