@@ -1,10 +1,8 @@
-var service;
-var infowindow
 var map;
-var marker;
 var end = new google.maps.LatLng(37.7856360, -122.3971190)
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
+var start;
 
 function initialize() {
 
@@ -24,33 +22,63 @@ function initialize() {
 
   directionsDisplay.setMap(map);
 
-  var input = (document.getElementById('pac-input'));
+  var waypoints = []
 
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  var input = (document.getElementById('pac-input'));
+  var firstWaypoint = (document.getElementById('first-waypoint'))
 
   var searchBox = new google.maps.places.SearchBox((input));
+  var firstWaypointSearchBox = new google.maps.places.SearchBox((firstWaypoint));
 
-  // [START region_getplaces]
+
   // Listen for the event fired when the user selects an item from the
   // pick list. Retrieve the matching places for that item.
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
 
-    var start = new google.maps.LatLng(places[0].geometry.location.k, places[0].geometry.location.D)
+    var startLoc = places[0].geometry.location;
+    start = new google.maps.LatLng(places[0].geometry.location.k, places[0].geometry.location.D)
 
-    calcRoute(start);
+    // change the bounds so that it incorpartes space between start and end point
 
+  });
+
+  google.maps.event.addListener(firstWaypointSearchBox, 'places_changed', function() {
+    var places = firstWaypointSearchBox.getPlaces();
+
+    waypoints.push({
+      location: new google.maps.LatLng(places[0].geometry.location.k, places[0].geometry.location.D),
+      stopover: true
+    })
+
+  });
+
+  var searchButton = document.getElementById('search-submit');
+
+  searchButton.addEventListener("click", function(){
+    // if(start){
+      calcRoute(start, waypoints)
+    // }
+  });
+
+  // Bias the SearchBox results towards places that are within the bounds of the
+  // current map's viewport.
+  google.maps.event.addListener(map, 'bounds_changed', function() {
+    var bounds = map.getBounds();
+    searchBox.setBounds(bounds);
   });
 }
 
 
 
-function calcRoute(start) {
+function calcRoute(start, waypoints) {
   var request = {
       origin: start,
       destination: end,
+      waypoints: waypoints,
       travelMode: google.maps.TravelMode.DRIVING
   };
+
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);

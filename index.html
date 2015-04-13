@@ -4,16 +4,17 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBghELHzFTk1s9rmJjHg8Ped97lmIAP1uQ">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBghELHzFTk1s9rmJjHg8Ped97lmIAP1uQ&libraries=places">
     </script>
-
-    <script type="text/javascript"    src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
     <script src="map.js"></script>
 
   </head>
   <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <input id="pac-input" class="controls" type="text" placeholder="Enter Starting Point">
+    <input id="first-waypoint" class="controls waypoint" type="text" placeholder="stop along the way?">
+    <button type="submit" id="search-submit" name="button">Show me the way!</button>
+
     <div id="map-canvas"></div>
     <div id="directions-panel"></div>
   </body>
