@@ -89,17 +89,14 @@ function initialize() {
 
       bounds.extend(place.geometry.location);
     }
-    // var waypointLocation = places[0].geometry.location
-    //
-    // waypoints.push({
-    //   location: new google.maps.LatLng(waypointLocation.k, waypointLocation.D),
-    //   stopover: true
-    // })
   });
 
-  var searchButton = document.getElementById('search-submit');
+  $(document).on("click", '#add-stop', function(){
+    waypoints.push({
+      location: infowindow.position,
+      stopover: true
+    })
 
-  searchButton.addEventListener("click", function(){
     if(start){
       calcRoute(start, waypoints)
     }
