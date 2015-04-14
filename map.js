@@ -43,7 +43,7 @@ function initialize() {
     var startLoc = places[0].geometry.location;
     start = new google.maps.LatLng(startLoc.k, startLoc.D)
 
-    // change the bounds so that it incorpartes space between start and end point
+    calcRoute(start, waypoints)
 
   });
 
