@@ -19,7 +19,7 @@
     <div class="container">
 
       <div class="choices">
-        <p id="transport-mode">
+        <p id="transport-mode" class="question">
           What is your mode of transportation?
         </p>
         <select id="transport-dropdown">
@@ -28,16 +28,16 @@
           <option value="WALKING">Walking</option>
         </select>
 
-        <p id="starting-point">
+        <p id="starting-point" class="question">
           Where are you leaving from?
         </p>
 
-        <input id="pac-input" class="controls" type="text" placeholder="ex: '1562 Dolores St'">
+        <input id="pac-input" class="map-input" type="text" placeholder="ex: '1562 Dolores St'">
 
-        <p id="waypoint-question">
+        <p id="waypoint-question" class="question">
           Find stops to make a long the way:
         </p>
-        <input id="waypoint" class="controls waypoint" type="text" placeholder='ex: "donuts", "dry cleaners"'>
+        <input id="waypoint" class="map-input waypoint" type="text" placeholder='ex: "donuts", "dry cleaners"'>
       </div>
 
       <div id="map-canvas"></div>

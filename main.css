@@ -6,6 +6,32 @@ html, body {
   color: rgb(100, 77, 131);
 }
 
+/*Intro and title*/
+
+.intro{
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto 30px;
+}
+
+
+h1{
+  text-align: center;
+}
+
+
+/*containers for questions and map*/
+
+.container{
+  margin: 0 auto;
+}
+
+.choices{
+  float: left;
+  padding: 0 30px 0 0;
+  max-width: 400px;
+}
+
 #map-canvas {
   height: 400px;
   min-width: 400px;
@@ -14,31 +40,14 @@ html, body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-.intro{
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto 30px;
-}
 
-h2{
-  visibility: hidden;
-}
+/* Questions */
 
-/* SearchBoxs*/
-
-.controls {
-  margin-top: 16px;
+.map-input {
   border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
   height: 32px;
-  outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-
-.controls {
   background-color: #fff;
   font-family: Roboto;
   font-size: 15px;
@@ -46,14 +55,11 @@ h2{
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 400px;
+  display: block;
 }
 
 #pac-input:focus {
   border-color: #4d90fe;
-}
-
-.pac-container {
-  font-family: Roboto;
 }
 
 #type-selector {
@@ -72,34 +78,23 @@ h2{
   width: 345px;
 }
 
-
-h1{
-  text-align: center;
+.question{
+  margin-top: 45px;
 }
 
-.container{
-  margin: 0 auto;
+#transport-dropdown{
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: 0 1px 1px rgba(50,50,50,0.1);
+  cursor: pointer;
+  color: rgb(113, 113, 113);
 }
 
-.choices{
-  float: left;
-  padding: 0 20px 0 0;
-  max-width: 400px;
-}
 
-.choices > p{
-  text-align: left;
-}
+/*Directions */
 
-.controls{
-  display: block;
-  margin-bottom: 60px;
-}
-
-#transport-mode{
-  margin-top: 40px;
-}
-
-#starting-point{
-  margin-top: 40px;
+h2{
+  visibility: hidden;
 }
