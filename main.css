@@ -1,16 +1,28 @@
 html, body {
   height: 100%;
   margin: 0;
-  padding: 0;
-
+  padding: 0 2%;
+  font-family: 'Roboto', serif;
+  color: rgb(100, 77, 131);
 }
 
 #map-canvas {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  height: 400px;
+  min-width: 400px;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
+.intro{
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto 30px;
+}
+
+h2{
+  visibility: hidden;
+}
 
 /* SearchBoxs*/
 
@@ -31,7 +43,6 @@ html, body {
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
-  margin-left: 12px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 400px;
@@ -59,4 +70,32 @@ html, body {
 
 #target {
   width: 345px;
+}
+
+
+h1{
+  text-align: center;
+}
+
+.container{
+  margin: 0 auto;
+}
+
+.choices{
+  float: left;
+  padding: 0 20px 0 0;
+  max-width: 400px;
+}
+
+.choices > p{
+  text-align: left;
+}
+
+.controls{
+  display: block;
+  margin-bottom: 60px;
+}
+
+#starting-point{
+  margin-top: 90px;
 }

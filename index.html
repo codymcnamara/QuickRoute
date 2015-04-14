@@ -2,7 +2,6 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="main.css">
-
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBghELHzFTk1s9rmJjHg8Ped97lmIAP1uQ&libraries=places">
     </script>
@@ -11,10 +10,35 @@
 
   </head>
   <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Enter Starting Point">
-    <input id="first-waypoint" class="controls waypoint" type="text" placeholder="stop along the way?">
+    <h1>And We're Off to ClickTime!</h1>
+    <div class="intro">
+      Enter your starting point and pick any places you'd like to stop on your way to the Clicktime office. We'll find the quickest route for you :)
+    </div>
 
-    <div id="map-canvas"></div>
+
+    <div class="container">
+
+      <div class="choices">
+        <p id="starting-point">
+          Where are you leaving from?
+        </p>
+
+        <input id="pac-input" class="controls" type="text" placeholder="ex: '1562 Dolores St'">
+
+        <p id="waypoint-question">
+          Find stops to make a long the way:
+        </p>
+        <input id="waypoint" class="controls waypoint" type="text" placeholder='ex: "donuts", "dry cleaners"'>
+      </div>
+
+      <div id="map-canvas"></div>
+
+    </div>
+
+
+
+
+    <h2>Directions:</h2>
     <div id="directions-panel"></div>
   </body>
 </html>

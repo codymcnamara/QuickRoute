@@ -29,7 +29,7 @@ function initialize() {
   infowindow = new google.maps.InfoWindow();
 
   var input = (document.getElementById('pac-input'));
-  var firstWaypoint = (document.getElementById('first-waypoint'))
+  var firstWaypoint = (document.getElementById('waypoint'))
 
   var searchBox = new google.maps.places.SearchBox((input));
   var firstWaypointSearchBox = new google.maps.places.SearchBox((firstWaypoint));
@@ -104,8 +104,9 @@ function initialize() {
 
       deleteMarkers();
       infowindow.close();
+      $("#waypoint").val("");
     } else {
-      alert("can't have more than 3 stops!")
+      alert("You can't have more than 3 stops!")
     }
   });
 
@@ -149,6 +150,8 @@ function calcRoute(start, waypoints) {
       directionsDisplay.setDirections(response);
     }
   });
+
+  $("h2").css("visibility", "visible")
 }
 
 
