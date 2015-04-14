@@ -101,6 +101,9 @@ function initialize() {
       if(start){
         calcRoute(start, waypoints)
       }
+
+      deleteMarkers();
+      infowindow.close();
     } else {
       alert("can't have more than 3 stops!")
     }
@@ -113,11 +116,24 @@ function initialize() {
     searchBox.setBounds(bounds);
     firstWaypointSearchBox.setBounds(bounds);
   });
-
-
 }
 
+// Sets the map on all markers in the array.
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
 
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setAllMap(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
 
 function calcRoute(start, waypoints) {
   var request = {
