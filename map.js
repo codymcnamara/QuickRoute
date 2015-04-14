@@ -92,13 +92,17 @@ function initialize() {
   });
 
   $(document).on("click", '#add-stop', function(){
-    waypoints.push({
-      location: infowindow.position,
-      stopover: true
-    })
+    if(waypoints.length < 3){
+      waypoints.push({
+        location: infowindow.position,
+        stopover: true
+      })
 
-    if(start){
-      calcRoute(start, waypoints)
+      if(start){
+        calcRoute(start, waypoints)
+      }
+    } else {
+      alert("can't have more than 3 stops!")
     }
   });
 
