@@ -137,12 +137,14 @@ function deleteMarkers() {
 }
 
 function calcRoute(start, waypoints) {
+  var travelMethod = $("#transport-dropdown option:selected").val()
+
   var request = {
       origin: start,
       destination: end,
       waypoints: waypoints,
       optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: eval("google.maps.TravelMode." + travelMethod)
   };
 
   directionsService.route(request, function(response, status) {
