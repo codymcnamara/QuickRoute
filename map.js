@@ -32,7 +32,7 @@ function initialize() {
   var firstWaypoint = (document.getElementById('waypoint'))
 
   var searchBox = new google.maps.places.SearchBox((input));
-  var firstWaypointSearchBox = new google.maps.places.SearchBox((firstWaypoint));
+  var waypointSearchBox = new google.maps.places.SearchBox((firstWaypoint));
 
 
   // Listen for the event fired when the user selects an item from the
@@ -47,8 +47,8 @@ function initialize() {
 
   });
 
-  google.maps.event.addListener(firstWaypointSearchBox, 'places_changed', function() {
-    var places = firstWaypointSearchBox.getPlaces();
+  google.maps.event.addListener(waypointSearchBox, 'places_changed', function() {
+    var places = waypointSearchBox.getPlaces();
     markers = [];
 
     if (places.length == 0) {
@@ -91,6 +91,12 @@ function initialize() {
     }
   });
 
+  $("#transport-dropdown").change( function(){
+    if(start){
+      calcRoute(start, waypoints)
+    }
+  })
+
   $(document).on("click", '#add-stop', function(){
     if(waypoints.length < 3){
       waypoints.push({
@@ -115,7 +121,7 @@ function initialize() {
   google.maps.event.addListener(map, 'bounds_changed', function() {
     var bounds = map.getBounds();
     searchBox.setBounds(bounds);
-    firstWaypointSearchBox.setBounds(bounds);
+    waypointSearchBox.setBounds(bounds);
   });
 }
 
