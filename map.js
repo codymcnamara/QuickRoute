@@ -3,6 +3,8 @@ var end = new google.maps.LatLng(37.7856360, -122.3971190)
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var start;
+var infowindow;
+var markers;
 
 function initialize() {
 
@@ -13,7 +15,7 @@ function initialize() {
 
   var mapOptions = {
     center: sf,
-    zoom: 12,
+    zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
@@ -23,6 +25,8 @@ function initialize() {
   directionsDisplay.setMap(map);
 
   var waypoints = []
+
+  infowindow = new google.maps.InfoWindow();
 
   var input = (document.getElementById('pac-input'));
   var firstWaypoint = (document.getElementById('first-waypoint'))
@@ -45,13 +49,52 @@ function initialize() {
 
   google.maps.event.addListener(firstWaypointSearchBox, 'places_changed', function() {
     var places = firstWaypointSearchBox.getPlaces();
+    markers = [];
 
-    var waypointLocation = places[0].geometry.location
+    if (places.length == 0) {
+      return;
+    }
+    for (var i = 0, marker; marker = markers[i]; i++) {
+      marker.setMap(null);
+    }
 
-    waypoints.push({
-      location: new google.maps.LatLng(waypointLocation.k, waypointLocation.D),
-      stopover: true
-    })
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0, place; place = places[i]; i++) {
+      var image = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      var marker = new google.maps.Marker({
+        map: map,
+        icon: image,
+        title: place.name,
+        position: place.geometry.location
+      });
+
+      // infowindow for each marker
+      google.maps.event.addListener(marker, 'click', function() {
+        var infoContent = event.currentTarget.title + "\n" + "\n" + '<button type="button" id="add-stop">Add Stop</button>'
+
+        infowindow.setContent(infoContent);
+        infowindow.setPosition(this.position);
+        infowindow.open(map);
+      })
+
+      markers.push(marker);
+
+      bounds.extend(place.geometry.location);
+    }
+    // var waypointLocation = places[0].geometry.location
+    //
+    // waypoints.push({
+    //   location: new google.maps.LatLng(waypointLocation.k, waypointLocation.D),
+    //   stopover: true
+    // })
   });
 
   var searchButton = document.getElementById('search-submit');
@@ -69,6 +112,8 @@ function initialize() {
     searchBox.setBounds(bounds);
     firstWaypointSearchBox.setBounds(bounds);
   });
+
+
 }
 
 
