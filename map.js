@@ -8,13 +8,13 @@ var markers;
 
 function initialize() {
 
-  var sf = new google.maps.LatLng(37.7856360, -122.3971190);
+  var clickTime = new google.maps.LatLng(37.7856360, -122.3971190);
 
   directionsDisplay = new google.maps.DirectionsRenderer();
   directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
   var mapOptions = {
-    center: sf,
+    center: clickTime,
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -28,11 +28,11 @@ function initialize() {
 
   infowindow = new google.maps.InfoWindow();
 
-  var input = (document.getElementById('pac-input'));
-  var firstWaypoint = (document.getElementById('waypoint'))
+  var startInput = (document.getElementById('pac-input'));
+  var waypointInput = (document.getElementById('waypoint'))
 
-  var searchBox = new google.maps.places.SearchBox((input));
-  var waypointSearchBox = new google.maps.places.SearchBox((firstWaypoint));
+  var searchBox = new google.maps.places.SearchBox((startInput));
+  var waypointSearchBox = new google.maps.places.SearchBox((waypointInput));
 
 
   // Listen for the event fired when the user selects an item from the
@@ -137,6 +137,7 @@ function clearMarkers() {
   setAllMap(null);
 }
 
+// Deletes all markers in the array by removing references to them.
 function deleteMarkers() {
   clearMarkers();
   markers = [];

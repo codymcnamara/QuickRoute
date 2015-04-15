@@ -82,6 +82,10 @@ h1{
   margin-top: 45px;
 }
 
+#waypoint{
+  margin-bottom: 30px;
+}
+
 #transport-dropdown{
   font-family: Roboto;
   font-size: 15px;
