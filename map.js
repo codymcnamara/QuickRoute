@@ -15,7 +15,7 @@ function initialize() {
 
   var mapOptions = {
     center: clickTime,
-    zoom: 14,
+    zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
@@ -64,7 +64,7 @@ function initialize() {
         url: place.icon,
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
+        anchor: new google.maps.Point(13, 18),
         scaledSize: new google.maps.Size(25, 25)
       };
 
