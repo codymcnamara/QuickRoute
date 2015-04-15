@@ -5,6 +5,7 @@ var directionsService = new google.maps.DirectionsService();
 var start;
 var infowindow;
 var markers;
+var startMarker;
 
 function initialize() {
 
@@ -28,6 +29,8 @@ function initialize() {
 
   infowindow = new google.maps.InfoWindow();
 
+  createInitialMarker()
+
   var startInput = (document.getElementById('pac-input'));
   var waypointInput = (document.getElementById('waypoint'))
 
@@ -44,11 +47,17 @@ function initialize() {
     start = new google.maps.LatLng(startLoc.k, startLoc.D)
 
     calcRoute(start, waypoints)
+    deleteMarkers();
 
   });
 
   google.maps.event.addListener(waypointSearchBox, 'places_changed', function() {
     var places = waypointSearchBox.getPlaces();
+
+    if(markers[0] === startMarker){
+      deleteMarkers();
+    }
+
     markers = [];
 
     if (places.length == 0) {
@@ -125,6 +134,16 @@ function initialize() {
   });
 }
 
+function createInitialMarker() {
+  startMarker = new google.maps.Marker({
+    map: map,
+    title: "ClickTime Office",
+    position: new google.maps.LatLng(37.7856360, -122.3971190)
+  })
+  markers = [];
+  markers.push(startMarker);
+}
+
 // Sets the map on all markers in the array.
 function setAllMap(map) {
   for (var i = 0; i < markers.length; i++) {
@@ -162,6 +181,5 @@ function calcRoute(start, waypoints) {
 
   $("h2").css("visibility", "visible")
 }
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
