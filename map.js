@@ -1,17 +1,14 @@
 var map;
 var end = new google.maps.LatLng(37.7856360, -122.3971190)
+var start;
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
-var start;
 var markers;
 var startMarker;
 
 function initialize() {
 
   var clickTime = new google.maps.LatLng(37.7856360, -122.3971190);
-
-  directionsDisplay = new google.maps.DirectionsRenderer();
-  directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
   var mapOptions = {
     center: clickTime,
@@ -22,34 +19,34 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay.setPanel(document.getElementById('directions-panel'));
   directionsDisplay.setMap(map);
-
-  var waypoints = []
 
   var infowindow = new google.maps.InfoWindow();
 
-  createInitialMarker()
+  createInitialMarker();
+
+  var waypoints = [];
 
   var startInput = (document.getElementById('pac-input'));
-  var waypointInput = (document.getElementById('waypoint'))
+  var waypointInput = (document.getElementById('waypoint'));
 
-  var searchBox = new google.maps.places.SearchBox((startInput));
+  var startSearchBox = new google.maps.places.SearchBox((startInput));
   var waypointSearchBox = new google.maps.places.SearchBox((waypointInput));
 
-
-  // Listen for the event fired when the user selects an item from the
-  // pick list. Retrieve the matching places for that item.
-  google.maps.event.addListener(searchBox, 'places_changed', function() {
-    var places = searchBox.getPlaces();
+  // render directions when user picks starting point
+  google.maps.event.addListener(startSearchBox, 'places_changed', function() {
+    var places = startSearchBox.getPlaces();
 
     var startLoc = places[0].geometry.location;
     start = new google.maps.LatLng(startLoc.k, startLoc.D)
 
     calcRoute(start, waypoints)
     deleteMarkers();
-
   });
 
+  // render markers for places search query
   google.maps.event.addListener(waypointSearchBox, 'places_changed', function() {
     var places = waypointSearchBox.getPlaces();
 
@@ -99,12 +96,14 @@ function initialize() {
     }
   });
 
+  // render new directions if user changes transportation method
   $("#transport-dropdown").change( function(){
     if(start){
       calcRoute(start, waypoints)
     }
   })
 
+  // render new directions when user adds new stop
   $(document).on("click", '#add-stop', function(){
     if(waypoints.length < 3){
       waypoints.push({
@@ -128,7 +127,7 @@ function initialize() {
   // current map's viewport.
   google.maps.event.addListener(map, 'bounds_changed', function() {
     var bounds = map.getBounds();
-    searchBox.setBounds(bounds);
+    startSearchBox.setBounds(bounds);
     waypointSearchBox.setBounds(bounds);
   });
 }
