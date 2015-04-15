@@ -3,7 +3,6 @@ var end = new google.maps.LatLng(37.7856360, -122.3971190)
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var start;
-var infowindow;
 var markers;
 var startMarker;
 
@@ -27,7 +26,7 @@ function initialize() {
 
   var waypoints = []
 
-  infowindow = new google.maps.InfoWindow();
+  var infowindow = new google.maps.InfoWindow();
 
   createInitialMarker()
 
