@@ -24,6 +24,27 @@ function initialize() {
 
   directionsDisplay.setMap(map);
 
+  // there doesn't seem to be a way to get rid of just the last marker
+  // rendered from directions so i think you have to use "suppressMarkers()"
+  // on all of them and then render them individually with you're own custom
+  // markers
+  var clicktimeImage = {
+    url: "clicktimelogo.gif",
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(13, 18),
+    scaledSize: new google.maps.Size(25, 25)
+  }
+
+  var clicktimeMarker = new google.maps.Marker({
+    map: map,
+    icon: clicktimeImage,
+    title: "ClickTime",
+    position: new google.maps.LatLng(37.7856360, -122.3971190)
+  })
+  markers = [];
+  markers.push(clicktimeMarker);
+
   var waypoints = []
 
   infowindow = new google.maps.InfoWindow();
@@ -64,7 +85,7 @@ function initialize() {
         url: place.icon,
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
+        anchor: new google.maps.Point(13, 18),
         scaledSize: new google.maps.Size(25, 25)
       };
 
