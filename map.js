@@ -5,7 +5,7 @@ var directionsService = new google.maps.DirectionsService();
 var start;
 var infowindow;
 var markers;
-var startMarker = "";
+var startMarker;
 
 function initialize() {
 
@@ -24,18 +24,6 @@ function initialize() {
       mapOptions);
 
   directionsDisplay.setMap(map);
-
-  // there doesn't seem to be a way to get rid of just the last marker
-  // rendered from directions so i think you have to use "suppressMarkers()"
-  // on all of them and then render them individually with you're own custom
-  // markers
-  // var clicktimeImage = {
-  //   url: "clicktimelogo.gif",
-  //   size: new google.maps.Size(71, 71),
-  //   origin: new google.maps.Point(0, 0),
-  //   anchor: new google.maps.Point(13, 18),
-  //   scaledSize: new google.maps.Size(25, 25)
-  // }
 
   var waypoints = []
 
@@ -65,6 +53,7 @@ function initialize() {
 
   google.maps.event.addListener(waypointSearchBox, 'places_changed', function() {
     var places = waypointSearchBox.getPlaces();
+
     if(markers[0] === startMarker){
       deleteMarkers();
     }
@@ -153,12 +142,6 @@ function createInitialMarker() {
   })
   markers = [];
   markers.push(startMarker);
-
-  google.maps.event.addListener(startMarker, 'click', function() {
-    infowindow.setContent(startMarker.title);
-    infowindow.setPosition(startMarker.position);
-    infowindow.open(map);
-  })
 }
 
 // Sets the map on all markers in the array.
@@ -198,6 +181,5 @@ function calcRoute(start, waypoints) {
 
   $("h2").css("visibility", "visible")
 }
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
