@@ -5,6 +5,7 @@ var directionsService = new google.maps.DirectionsService();
 var start;
 var infowindow;
 var markers;
+var startMarker = "";
 
 function initialize() {
 
@@ -28,26 +29,19 @@ function initialize() {
   // rendered from directions so i think you have to use "suppressMarkers()"
   // on all of them and then render them individually with you're own custom
   // markers
-  var clicktimeImage = {
-    url: "clicktimelogo.gif",
-    size: new google.maps.Size(71, 71),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(13, 18),
-    scaledSize: new google.maps.Size(25, 25)
-  }
-
-  var clicktimeMarker = new google.maps.Marker({
-    map: map,
-    icon: clicktimeImage,
-    title: "ClickTime",
-    position: new google.maps.LatLng(37.7856360, -122.3971190)
-  })
-  markers = [];
-  markers.push(clicktimeMarker);
+  // var clicktimeImage = {
+  //   url: "clicktimelogo.gif",
+  //   size: new google.maps.Size(71, 71),
+  //   origin: new google.maps.Point(0, 0),
+  //   anchor: new google.maps.Point(13, 18),
+  //   scaledSize: new google.maps.Size(25, 25)
+  // }
 
   var waypoints = []
 
   infowindow = new google.maps.InfoWindow();
+
+  createInitialMarker()
 
   var startInput = (document.getElementById('pac-input'));
   var waypointInput = (document.getElementById('waypoint'))
@@ -65,11 +59,16 @@ function initialize() {
     start = new google.maps.LatLng(startLoc.k, startLoc.D)
 
     calcRoute(start, waypoints)
+    deleteMarkers();
 
   });
 
   google.maps.event.addListener(waypointSearchBox, 'places_changed', function() {
     var places = waypointSearchBox.getPlaces();
+    if(markers[0] === startMarker){
+      deleteMarkers();
+    }
+
     markers = [];
 
     if (places.length == 0) {
@@ -144,6 +143,22 @@ function initialize() {
     searchBox.setBounds(bounds);
     waypointSearchBox.setBounds(bounds);
   });
+}
+
+function createInitialMarker() {
+  startMarker = new google.maps.Marker({
+    map: map,
+    title: "ClickTime Office",
+    position: new google.maps.LatLng(37.7856360, -122.3971190)
+  })
+  markers = [];
+  markers.push(startMarker);
+
+  google.maps.event.addListener(startMarker, 'click', function() {
+    infowindow.setContent(startMarker.title);
+    infowindow.setPosition(startMarker.position);
+    infowindow.open(map);
+  })
 }
 
 // Sets the map on all markers in the array.
