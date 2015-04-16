@@ -1,5 +1,5 @@
 var map;
-var end = new google.maps.LatLng(37.7856360, -122.3971190)
+var end = new google.maps.LatLng(37.7786, -122.3892)
 var start;
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
@@ -8,10 +8,8 @@ var startMarker;
 
 function initialize() {
 
-  var clickTime = new google.maps.LatLng(37.7856360, -122.3971190);
-
   var mapOptions = {
-    center: clickTime,
+    center: end,
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -135,8 +133,8 @@ function initialize() {
 function createInitialMarker() {
   startMarker = new google.maps.Marker({
     map: map,
-    title: "ClickTime Office",
-    position: new google.maps.LatLng(37.7856360, -122.3971190)
+    title: "Giants Stadium",
+    position: end
   })
   markers = [];
   markers.push(startMarker);
